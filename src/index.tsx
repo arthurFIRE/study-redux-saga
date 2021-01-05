@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -6,12 +7,11 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { rootReducer } from './store/reducers/index';
-import mySaga from './store/sagas';
+import { rootReducer, rootSaga } from './store';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
-sagaMiddleware.run(mySaga);
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,7 +19,7 @@ ReactDOM.render(
       <App />
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
