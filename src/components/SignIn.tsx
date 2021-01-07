@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Auth } from 'aws-amplify';
 import FormElement from './FormElement';
 
-const SignIn = () => {
+const SignIn:React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const signIn = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
