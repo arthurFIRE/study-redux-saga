@@ -7,7 +7,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [waitingForCode, setWaitingForCode] = useState(false);
   const [code, setCode] = useState('');
-  const signUp = (e: any) => {
+  const signUp = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     Auth.signUp({ username: email, password, attributes: { email } })
       .then((data) => {
@@ -19,7 +19,7 @@ const SignUp = () => {
         console.log(err);
       });
   };
-  const confirmSignUp = (e: any) => {
+  const confirmSignUp = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     Auth.confirmSignUp(email, code)
       .then((data) => {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Amplify, { Auth } from 'aws-amplify';
@@ -12,6 +12,7 @@ import SignUp from './components/SignUp';
 function App() {
   const dispatch = useDispatch();
   const sagaData = useKanyeDataState();
+  const [userData, setUserData] = useState();
   useEffect(() => {
     Amplify.configure({
       Auth: {
@@ -19,6 +20,11 @@ function App() {
         userPoolId: process.env.REACT_APP_USER_POOL_ID,
         userPoolWebClientId: process.env.REACT_APP_USER_POOL_WEB_CLIENT_ID,
       },
+    });
+
+    Auth.currentUserInfo().then((user) => {
+      console.log('user ', user);
+      setUserData(user);
     });
 
     dispatch(requestData());
@@ -37,6 +43,7 @@ function App() {
       </button>
       <div>{sagaData.quote}</div>
       <br />
+      {`user : ${userData && JSON.stringify(userData)}`}
       <SignIn />
       <SignUp />
       <BrowserRouter>
@@ -46,6 +53,14 @@ function App() {
         <Route path="/" component={Index} exact />
         <Route path="/login" component={Login} exact />
       </BrowserRouter>
+      <button
+        type="button"
+        onClick={() => {
+          Auth.signOut();
+        }}
+      >
+        로그아웃
+      </button>
     </div>
   );
 }

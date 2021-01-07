@@ -5,7 +5,7 @@ import FormElement from './FormElement';
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const signIn = (e: any) => {
+  const signIn = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     Auth.signIn({
       username: email,
